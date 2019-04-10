@@ -33,18 +33,18 @@ io.on('connection', (socket) => {
      * debug
      */
     console.log('a user connected');
-    socket.on('disconnect', function() {
+    socket.on('disconnect', () => {
         console.log('user disconnected');
     });
 
     /**
      * session handling
      */
-    socket.on("login", function(userdata) {
+    socket.on("login", (userdata) => {
         socket.handshake.session.userdata = userdata;
         socket.handshake.session.save();
     });
-    socket.on("logout", function(userdata) {
+    socket.on("logout", (userdata) => {
         if (socket.handshake.session.userdata) {
             delete socket.handshake.session.userdata;
             socket.handshake.session.save();
@@ -54,11 +54,11 @@ io.on('connection', (socket) => {
     /**
      * chat messaging
      */
-    socket.on('chat message', function(msg) {
+    socket.on('chat message', (msg) => {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
-    socket.on('application:loaded', function(msg) {
+    socket.on('application:loaded', (msg) => {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });    
@@ -67,6 +67,6 @@ io.on('connection', (socket) => {
 /**
  * with arms wide open
  */
-http.listen(3000, function() {
+http.listen(3000, () => {
     console.log('listening on *:3000');
 });
