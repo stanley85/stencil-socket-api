@@ -14,7 +14,7 @@ var app = require('express')(),
 /**
  * port call fallback
  */
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.send('<script>window.location = "http://localhost:3333/"</script>');
 });
 
@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
      * debug
      */
     console.log('a user connected');
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
         console.log('user disconnected');
     });
 
@@ -54,11 +54,11 @@ io.on('connection', (socket) => {
     /**
      * chat messaging
      */
-    socket.on('chat message', function(msg){
+    socket.on('chat message', function(msg) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
-    socket.on('application:loaded', function(msg){
+    socket.on('application:loaded', function(msg) {
         console.log('message: ' + msg);
         io.emit('chat message', msg);
     });    
